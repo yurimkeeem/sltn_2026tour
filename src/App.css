@@ -319,66 +319,34 @@ body {
   margin-bottom: 1rem;
 }
 
-.tweet-list {
+/* 트윗 임베드 리스트 */
+.tweet-embed-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
-.tweet-card {
-  display: block;
+.tweet-embed-wrapper {
+  max-width: 550px;
+}
+
+/* Twitter 임베드 다크 테마 오버라이드 */
+.tweet-embed-wrapper .twitter-tweet {
+  margin: 0 !important;
+}
+
+/* 로딩 중 스타일 */
+.tweet-embed-wrapper blockquote {
   padding: 1rem;
   background: var(--bg-color);
-  border-radius: 12px;
-  text-decoration: none;
-  color: var(--text-primary);
-  transition: all 0.2s ease;
   border: 1px solid var(--border-color);
-}
-
-.tweet-card:hover {
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-2px);
-}
-
-.tweet-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.tweet-author {
-  font-weight: 600;
-  font-size: 0.875rem;
-}
-
-.tweet-handle {
+  border-radius: 12px;
   color: var(--text-secondary);
-  font-size: 0.75rem;
+  font-style: normal;
 }
 
-.tweet-content {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  margin-bottom: 0.75rem;
-}
-
-.tweet-stats {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-}
-
-.tweet-stat {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.tweet-date {
-  margin-left: auto;
+.tweet-embed-wrapper blockquote a {
+  color: var(--accent-color);
 }
 
 /* 지도 툴팁 스타일 */
@@ -592,6 +560,12 @@ body {
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.2s;
+  background-color: #0a0a0a !important;
+  color: #ffffff !important;
+}
+
+.vote-form-nickname input::placeholder {
+  color: var(--text-secondary);
 }
 
 .vote-form-nickname input:focus {
@@ -635,12 +609,13 @@ body {
 .vote-song-btn {
   position: relative;
   padding: 0.5rem 1rem;
-  background: var(--bg-color);
+  background-color: #0a0a0a !important;
   border: 2px solid transparent;
   border-radius: 20px;
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  color: #ffffff !important;
 }
 
 .vote-song-btn:hover {
@@ -1002,17 +977,13 @@ body {
   white-space: nowrap;
 }
 
-/* 모바일 퀵 네비게이션 */
+/* 모바일 퀵 네비게이션 - 프로그레스바 아래 */
 .mobile-quick-nav {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: var(--card-bg);
-  border-bottom: 1px solid var(--border-color);
-  position: sticky;
-  top: var(--mobile-header-height, 44px);
-  z-index: 99;
+  padding: 0.75rem 0 0 0;
+  background: transparent;
 }
 
 .mobile-quick-nav button {
@@ -1064,6 +1035,74 @@ body {
 .mobile-progress-section {
   padding: 1rem;
   background: var(--card-bg);
+  position: sticky;
+  top: var(--mobile-header-height, 44px);
+  z-index: 99;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* 모바일 공연 일정 칩 가로스크롤 */
+.mobile-schedule-section {
+  padding: 0.75rem 0;
+  overflow: hidden;
+}
+
+.mobile-schedule-chips {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.25rem 1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.mobile-schedule-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.schedule-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.schedule-chip:hover {
+  border-color: var(--accent-light);
+}
+
+.schedule-chip--selected {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.schedule-chip--selected .chip-city,
+.schedule-chip--selected .chip-date {
+  color: var(--primary-color);
+}
+
+.schedule-chip--past {
+  opacity: 0.5;
+}
+
+.chip-city {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.chip-date {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
 }
 
 /* 투어 프로그레스 바 */

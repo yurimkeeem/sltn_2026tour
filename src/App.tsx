@@ -49,26 +49,35 @@ function App() {
           year={tourData.year}
         />
 
-        <MobileQuickNav hasSetlist={hasAnySetlist} hasTweets={hasAnyTweets} />
-
         <main className="mobile-content">
-          {/* 프로그레스 바 */}
+          {/* 프로그레스 바 + 퀵 네비게이션 */}
           <section className="mobile-progress-section">
             <TourProgressBar
               tourDates={tourData.tourDates}
               selectedId={selectedTourDate?.id}
               onSelect={handleMarkerClick}
             />
+            <MobileQuickNav hasSetlist={hasAnySetlist} hasTweets={hasAnyTweets} />
           </section>
 
-          {/* 공연 일정 섹션 */}
-          <section id="schedule-section" className="mobile-section">
-            <h2 className="mobile-section-title">공연 일정</h2>
-            <TourList
-              tourDates={tourData.tourDates}
-              selectedId={selectedTourDate?.id}
-              onSelect={handleMarkerClick}
-            />
+          {/* 공연 일정 섹션 - 칩 가로스크롤 */}
+          <section id="schedule-section" className="mobile-schedule-section">
+            <div className="mobile-schedule-chips">
+              {tourData.tourDates.map((td) => {
+                const isSelected = selectedTourDate?.id === td.id;
+                const isPast = new Date(td.date) < new Date(new Date().toDateString());
+                return (
+                  <button
+                    key={td.id}
+                    className={`schedule-chip ${isSelected ? 'schedule-chip--selected' : ''} ${isPast ? 'schedule-chip--past' : ''}`}
+                    onClick={() => handleMarkerClick(td)}
+                  >
+                    <span className="chip-city">{td.city}</span>
+                    <span className="chip-date">{td.date.slice(5)}</span>
+                  </button>
+                );
+              })}
+            </div>
           </section>
 
           {/* 상세 정보 */}

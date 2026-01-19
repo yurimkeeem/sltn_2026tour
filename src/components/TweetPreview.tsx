@@ -1,7 +1,14 @@
+import { Tweet as ReactTweet } from 'react-tweet';
 import type { Tweet } from '../types';
 
 interface TweetPreviewProps {
   tweets: Tweet[];
+}
+
+// 트윗 URL에서 ID 추출
+function extractTweetId(url: string): string | null {
+  const match = url.match(/status\/(\d+)/);
+  return match ? match[1] : null;
 }
 
 export function TweetPreview({ tweets }: TweetPreviewProps) {
@@ -12,31 +19,17 @@ export function TweetPreview({ tweets }: TweetPreviewProps) {
   return (
     <div className="tweet-section">
       <h4>🐦 화제의 트윗</h4>
-      <div className="tweet-list">
-        {tweets.map((tweet) => (
-          <a
-            key={tweet.id}
-            href={tweet.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tweet-card"
-          >
-            <div className="tweet-header">
-              <span className="tweet-author">{tweet.author}</span>
-              <span className="tweet-handle">{tweet.authorHandle}</span>
+      <div className="tweet-embed-list">
+        {tweets.map((tweet) => {
+          const tweetId = extractTweetId(tweet.url);
+          if (!tweetId) return null;
+
+          return (
+            <div key={tweet.id} className="tweet-embed-wrapper" data-theme="dark">
+              <ReactTweet id={tweetId} />
             </div>
-            <p className="tweet-content">{tweet.content}</p>
-            <div className="tweet-stats">
-              <span className="tweet-stat">
-                ❤️ {tweet.likes.toLocaleString()}
-              </span>
-              <span className="tweet-stat">
-                🔁 {tweet.retweets.toLocaleString()}
-              </span>
-              <span className="tweet-date">{tweet.date}</span>
-            </div>
-          </a>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
