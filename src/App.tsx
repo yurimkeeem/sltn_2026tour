@@ -12,7 +12,11 @@ import './App.css';
 
 function App() {
   const [selectedTourDate, setSelectedTourDate] = useState<TourDate | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  // SSR 안전: 초기값은 false, 클라이언트에서 체크
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.innerWidth <= 768;
+  });
 
   useEffect(() => {
     const checkMobile = () => {
@@ -31,10 +35,10 @@ function App() {
     setSelectedTourDate(null);
   };
 
-  // 모바일에서 선택된 투어 또는 첫 번째 투어의 정보 확인
-  const currentTour = selectedTourDate || tourData.tourDates[0];
-  const hasSetlist = currentTour?.setlist?.length > 0;
-  const hasTweets = currentTour?.featuredTweets?.length > 0;
+  // 퀵 네비게이션용: 선택된 투어 기준으로 표시
+  // 선택 전에는 모든 투어를 확인하여 셋리스트/트윗이 있는지 체크
+  const hasAnySetlist = tourData.tourDates.some(td => td.setlist?.length > 0);
+  const hasAnyTweets = tourData.tourDates.some(td => td.featuredTweets?.length > 0);
 
   if (isMobile) {
     return (
@@ -45,7 +49,7 @@ function App() {
           year={tourData.year}
         />
 
-        <MobileQuickNav hasSetlist={hasSetlist} hasTweets={hasTweets} />
+        <MobileQuickNav hasSetlist={hasAnySetlist} hasTweets={hasAnyTweets} />
 
         <main className="mobile-content">
           {/* 프로그레스 바 */}
