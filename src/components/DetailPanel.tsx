@@ -77,7 +77,7 @@ export function DetailPanel({ tourDate, onClose }: DetailPanelProps) {
         {upcoming ? (
           // 공연 예정: 투표 기능
           <>
-            <div className="vote-section">
+            <div id="setlist-section" className="vote-section">
               <button
                 className="vote-open-btn"
                 onClick={() => setShowVoteForm(true)}
@@ -98,9 +98,13 @@ export function DetailPanel({ tourDate, onClose }: DetailPanelProps) {
         ) : (
           // 공연 완료: 실제 셋리스트
           <>
-            <SetlistDisplay setlist={tourDate.setlist} />
+            <div id="setlist-section">
+              <SetlistDisplay setlist={tourDate.setlist} />
+            </div>
             <PlaylistLinks links={tourDate.playlistLinks} />
-            <TweetPreview tweets={tourDate.featuredTweets} />
+            <div id="tweets-section">
+              <TweetPreview tweets={tourDate.featuredTweets} />
+            </div>
           </>
         )}
       </div>

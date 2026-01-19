@@ -942,3 +942,285 @@ body {
     font-size: 0.9rem;
   }
 }
+
+/* ============================================
+   모바일 전용 스타일 (768px 이하)
+   ============================================ */
+
+/* 모바일 앱 레이아웃 */
+.app--mobile {
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+.app--mobile .app-header {
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* 모바일 헤더 한 줄 표시 */
+.app--mobile .header-content {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.app--mobile .tour-title {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.app--mobile .band-name {
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.app--mobile .tour-name {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.app--mobile .tour-name::before {
+  content: '-';
+  margin-right: 0.5rem;
+}
+
+.app--mobile .tour-year {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  white-space: nowrap;
+}
+
+/* 모바일 퀵 네비게이션 */
+.mobile-quick-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 52px;
+  z-index: 99;
+}
+
+.mobile-quick-nav button {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-quick-nav button:hover,
+.mobile-quick-nav button:active {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border-color: var(--accent-color);
+}
+
+.mobile-quick-nav button span {
+  font-size: 0.9rem;
+}
+
+/* 모바일 메인 콘텐츠 */
+.mobile-content {
+  padding: 0;
+  overflow-y: auto;
+}
+
+/* 모바일 섹션 */
+.mobile-section {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+/* 모바일 프로그레스 섹션 */
+.mobile-progress-section {
+  padding: 1rem;
+  background: var(--card-bg);
+}
+
+/* 투어 프로그레스 바 */
+.tour-progress-bar {
+  padding: 0.5rem 0;
+}
+
+.progress-track {
+  position: relative;
+  height: 4px;
+  background: var(--border-color);
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--accent-color);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.progress-airplane {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.25rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transition: left 0.3s ease;
+  z-index: 1;
+}
+
+.progress-cities {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-city {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  flex: 1;
+}
+
+.progress-city-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--border-color);
+  border-radius: 50%;
+  border: 2px solid var(--card-bg);
+  transition: all 0.2s ease;
+}
+
+.progress-city-name {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.progress-city--past .progress-city-dot {
+  background: var(--accent-light);
+}
+
+.progress-city--past .progress-city-name {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.progress-city--next .progress-city-dot {
+  background: var(--accent-color);
+  transform: scale(1.2);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.progress-city--next .progress-city-name {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.progress-city--selected .progress-city-dot {
+  background: var(--accent-color);
+  transform: scale(1.4);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+}
+
+.progress-city--selected .progress-city-name {
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+/* 모바일 투어 리스트 수정 */
+.app--mobile .tour-list {
+  padding: 0;
+}
+
+.app--mobile .tour-list-title {
+  display: none;
+}
+
+.app--mobile .tour-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.app--mobile .tour-list-item {
+  margin-bottom: 0;
+}
+
+/* 모바일 디테일 패널 */
+.app--mobile .detail-panel {
+  padding: 0;
+}
+
+.app--mobile .detail-panel .close-button {
+  display: none;
+}
+
+/* 모바일에서 포스터 숨기기 */
+.app--mobile .poster-section {
+  display: none;
+}
+
+/* 모바일에서 빈 상태 메시지 숨기기 */
+.app--mobile .detail-panel--empty {
+  display: none;
+}
+
+/* 768px 이하에서 추가 조정 */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .header-content {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .tour-title {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .band-name {
+    font-size: 1rem;
+  }
+
+  .tour-name {
+    font-size: 0.9rem;
+  }
+
+  .tour-year {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+  }
+}
