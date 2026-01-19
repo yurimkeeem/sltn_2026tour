@@ -34,6 +34,7 @@ export interface TourDate {
   featuredTweets: Tweet[];
   photoUrl?: string;
   expectedSetlistSize?: number; // 예상 셋리스트 곡 수 (투표용)
+  ticketLink?: string; // 티켓 구매 링크
 }
 
 // 셋리스트 투표 관련 타입
@@ -56,4 +57,5 @@ export interface TourInfo {
   year: number;
   description: string;
   tourDates: TourDate[];
+  posterUrl?: string; // 투어 포스터 이미지
 }

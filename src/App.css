@@ -6,16 +6,18 @@
 }
 
 :root {
-  --primary-color: #2d3436;
-  --accent-color: #6c5ce7;
-  --accent-light: #a29bfe;
-  --bg-color: #f8f9fa;
-  --card-bg: #ffffff;
-  --text-primary: #2d3436;
-  --text-secondary: #636e72;
-  --border-color: #dfe6e9;
-  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --primary-color: #0a0a0a;
+  --accent-color: #ffffff;
+  --accent-light: #888888;
+  --bg-color: #0a0a0a;
+  --card-bg: #141414;
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
+  --border-color: #2a2a2a;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.7);
+  --completed-marker: rgba(80, 80, 80, 0.6);
+  --upcoming-marker: #ffffff;
 }
 
 body {
@@ -33,11 +35,12 @@ body {
 
 /* 헤더 */
 .app-header {
-  background: linear-gradient(135deg, var(--primary-color), #636e72);
+  background: var(--primary-color);
   color: white;
   padding: 1rem 2rem;
   box-shadow: var(--shadow);
   z-index: 100;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .header-content {
@@ -67,7 +70,9 @@ body {
 
 .tour-year {
   font-size: 0.875rem;
-  background: var(--accent-color);
+  background: transparent;
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-weight: 600;
@@ -116,13 +121,17 @@ body {
 }
 
 .tour-list-item:hover {
-  background: var(--accent-light);
-  color: white;
+  background: var(--border-color);
+  color: var(--text-primary);
 }
 
 .tour-list-item--selected {
   background: var(--accent-color);
-  color: white;
+  color: var(--primary-color);
+}
+
+.tour-list-item--completed {
+  opacity: 0.5;
 }
 
 .tour-list-city {
@@ -193,13 +202,13 @@ body {
 .detail-header {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid var(--accent-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .detail-city {
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--accent-color);
+  color: var(--text-primary);
 }
 
 .detail-venue {
@@ -244,8 +253,8 @@ body {
 .song-number {
   width: 24px;
   height: 24px;
-  background: var(--accent-light);
-  color: white;
+  background: var(--border-color);
+  color: var(--text-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -291,8 +300,8 @@ body {
 }
 
 .platform-button:hover {
-  border-color: var(--platform-color);
-  background: white;
+  border-color: var(--accent-color);
+  background: var(--border-color);
   box-shadow: var(--shadow);
 }
 
@@ -385,15 +394,16 @@ body {
 }
 
 .leaflet-tooltip {
-  background: white;
-  border: none;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   padding: 0.5rem 0.75rem;
 }
 
 .leaflet-tooltip-top:before {
-  border-top-color: white;
+  border-top-color: var(--card-bg);
 }
 
 /* 반응형 디자인 */
@@ -483,14 +493,14 @@ body {
 .vote-section {
   text-align: center;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #a29bfe20, #6c5ce720);
+  background: var(--border-color);
   border-radius: 12px;
   margin-bottom: 1.5rem;
 }
 
 .vote-open-btn {
   background: var(--accent-color);
-  color: white;
+  color: var(--primary-color);
   border: none;
   padding: 1rem 2rem;
   font-size: 1.1rem;
@@ -498,12 +508,12 @@ body {
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 .vote-open-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
 }
 
 .vote-description {
@@ -528,7 +538,7 @@ body {
 }
 
 .vote-form-modal {
-  background: white;
+  background: var(--card-bg);
   border-radius: 16px;
   max-width: 600px;
   width: 100%;
@@ -536,6 +546,7 @@ body {
   overflow-y: auto;
   position: relative;
   padding: 2rem;
+  border: 1px solid var(--border-color);
 }
 
 .vote-form-close {
@@ -556,7 +567,7 @@ body {
 
 .vote-form-header h2 {
   font-size: 1.5rem;
-  color: var(--accent-color);
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
@@ -638,7 +649,7 @@ body {
 
 .vote-song-btn--selected {
   background: var(--accent-color);
-  color: white;
+  color: var(--primary-color);
   border-color: var(--accent-color);
 }
 
@@ -671,7 +682,7 @@ body {
 
 .vote-submit-btn {
   background: var(--accent-color);
-  color: white;
+  color: var(--primary-color);
   border: none;
   padding: 1rem 3rem;
   font-size: 1rem;
@@ -682,13 +693,13 @@ body {
 }
 
 .vote-submit-btn:disabled {
-  background: var(--border-color);
+  background: var(--text-secondary);
   cursor: not-allowed;
 }
 
 .vote-submit-btn:not(:disabled):hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 /* 예상 셋리스트 결과 */
@@ -725,8 +736,8 @@ body {
 .prediction-rank {
   width: 24px;
   height: 24px;
-  background: var(--accent-light);
-  color: white;
+  background: var(--border-color);
+  color: var(--text-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -738,17 +749,17 @@ body {
 
 .prediction-item:nth-child(1) .prediction-rank {
   background: #ffd700;
-  color: #333;
+  color: #0a0a0a;
 }
 
 .prediction-item:nth-child(2) .prediction-rank {
   background: #c0c0c0;
-  color: #333;
+  color: #0a0a0a;
 }
 
 .prediction-item:nth-child(3) .prediction-rank {
   background: #cd7f32;
-  color: white;
+  color: #0a0a0a;
 }
 
 .prediction-song-info {
@@ -772,7 +783,7 @@ body {
 
 .prediction-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-light), var(--accent-color));
+  background: linear-gradient(90deg, var(--text-secondary), var(--text-primary));
   border-radius: 3px;
   transition: width 0.3s ease;
 }
@@ -780,7 +791,7 @@ body {
 .prediction-percentage {
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--accent-color);
+  color: var(--text-primary);
   min-width: 40px;
   text-align: right;
 }
@@ -808,4 +819,126 @@ body {
   width: 20px;
   height: 20px;
   font-size: 0.65rem;
+}
+
+/* 포스터 섹션 */
+.poster-section {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tour-poster {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+/* 티켓 링크 버튼 */
+.ticket-link-section {
+  margin-bottom: 1.5rem;
+}
+
+.ticket-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem;
+  background: var(--accent-color);
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.ticket-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* 비행기 애니메이션 */
+.airplane-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.airplane-icon {
+  font-size: 2rem;
+  animation: fly 3s ease-in-out infinite;
+}
+
+@keyframes fly {
+  0%, 100% {
+    transform: translateY(0) rotate(-10deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(10deg);
+  }
+}
+
+.flight-path {
+  position: absolute;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.flight-path-line {
+  stroke: var(--accent-color);
+  stroke-width: 2;
+  stroke-dasharray: 8, 4;
+  fill: none;
+  opacity: 0.6;
+  animation: dash 1s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+/* 다크 맵 스타일 */
+.leaflet-container {
+  background: #1a1a1a !important;
+}
+
+/* 완료된 공연 마커 스타일 - TourMap에서 적용 */
+.completed-marker {
+  opacity: 0.5;
+}
+
+/* 모바일 포스터 우선 */
+@media (max-width: 992px) {
+  .poster-section {
+    padding: 0.75rem;
+  }
+
+  .tour-poster {
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 576px) {
+  .poster-section {
+    padding: 0.5rem;
+  }
+
+  .tour-poster {
+    max-height: 120px;
+  }
+
+  .ticket-button {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
 }

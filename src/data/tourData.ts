@@ -3,9 +3,10 @@ import type { TourInfo } from '../types';
 // 솔루션스 2026 투어 데이터
 export const tourData: TourInfo = {
   bandName: 'The Solutions',
-  tourName: '2026 Tour',
+  tourName: '비행',
   year: 2026,
-  description: '솔루션스 2026 전국투어',
+  description: '솔루션스 2026 전국투어 비행',
+  posterUrl: '/poster.jpg', // public 폴더에 포스터 이미지 추가 필요
   tourDates: [
     {
       id: 'chuncheon-1',
@@ -48,6 +49,7 @@ export const tourData: TourInfo = {
       playlistLinks: {},
       featuredTweets: [],
       expectedSetlistSize: 22,
+      ticketLink: 'https://ticket.interpark.com', // 실제 링크로 교체 필요
     },
     {
       id: 'busan-1',
@@ -59,6 +61,7 @@ export const tourData: TourInfo = {
       playlistLinks: {},
       featuredTweets: [],
       expectedSetlistSize: 22,
+      ticketLink: 'https://ticket.interpark.com',
     },
     {
       id: 'daegu-1',
@@ -70,6 +73,7 @@ export const tourData: TourInfo = {
       playlistLinks: {},
       featuredTweets: [],
       expectedSetlistSize: 22,
+      ticketLink: 'https://ticket.interpark.com',
     },
     {
       id: 'daejeon-1',
@@ -81,6 +85,7 @@ export const tourData: TourInfo = {
       playlistLinks: {},
       featuredTweets: [],
       expectedSetlistSize: 22,
+      ticketLink: 'https://ticket.interpark.com',
     },
     {
       id: 'seoul-1',
@@ -92,6 +97,7 @@ export const tourData: TourInfo = {
       playlistLinks: {},
       featuredTweets: [],
       expectedSetlistSize: 22,
+      ticketLink: 'https://ticket.interpark.com',
     },
   ],
 };

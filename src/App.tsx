@@ -3,6 +3,7 @@ import { Header } from './components/Header';
 import { TourMap } from './components/TourMap';
 import { TourList } from './components/TourList';
 import { DetailPanel } from './components/DetailPanel';
+import { TourPoster } from './components/TourPoster';
 import { tourData } from './data/tourData';
 import type { TourDate } from './types';
 import './App.css';
@@ -28,6 +29,10 @@ function App() {
 
       <main className="main-content">
         <aside className="sidebar">
+          <TourPoster
+            posterUrl={tourData.posterUrl}
+            tourName={tourData.tourName}
+          />
           <TourList
             tourDates={tourData.tourDates}
             selectedId={selectedTourDate?.id}

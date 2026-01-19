@@ -59,6 +59,20 @@ export function DetailPanel({ tourDate, onClose }: DetailPanelProps) {
         </p>
       </header>
 
+      {/* 티켓 구매 링크 (예정 공연만) */}
+      {upcoming && tourDate.ticketLink && (
+        <div className="ticket-link-section">
+          <a
+            href={tourDate.ticketLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ticket-button"
+          >
+            🎫 티켓 구매하기
+          </a>
+        </div>
+      )}
+
       <div className="detail-content">
         {upcoming ? (
           // 공연 예정: 투표 기능
