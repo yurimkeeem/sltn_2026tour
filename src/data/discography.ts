@@ -1,30 +1,29 @@
 // 솔루션스 전곡 리스트 (디스코그래피)
-// 실제 데이터로 업데이트 필요
+// 앨범별로 정리 - 실제 데이터로 업데이트 필요
 
 export const discography = [
-  // 정규 1집 예시
-  { title: '비행', album: '1집' },
-  { title: 'Fever', album: '1집' },
-  { title: 'Dance with You', album: '1집' },
-  { title: '넌 내게로', album: '1집' },
-  { title: 'New Generation', album: '1집' },
-  { title: 'Tick Tock', album: '1집' },
-  { title: '선인장', album: '1집' },
-  { title: 'Paradise', album: '1집' },
-
-  // 정규 2집 예시
-  { title: 'Youth', album: '2집' },
-  { title: 'Summer Night', album: '2집' },
-  { title: 'Electric Love', album: '2집' },
-  { title: 'Run Away', album: '2집' },
-  { title: 'Moonlight', album: '2집' },
-  { title: 'Stay', album: '2집' },
-
-  // 싱글/EP 예시
-  { title: 'First Light', album: 'Single' },
-  { title: 'Dreams', album: 'EP' },
-  { title: 'Endless Summer', album: 'EP' },
-  { title: 'City Lights', album: 'Single' },
+  // 춘천 셋리스트 기반 곡 목록
+  { title: 'Superstition', album: '싱글/EP' },
+  { title: 'Maximizer', album: '싱글/EP' },
+  { title: 'Fireworxx', album: '싱글/EP' },
+  { title: '三', album: '싱글/EP' },
+  { title: 'Love you dear', album: '싱글/EP' },
+  { title: 'Dance with me', album: '싱글/EP' },
+  { title: '까만 밤', album: '싱글/EP' },
+  { title: '미로', album: '싱글/EP' },
+  { title: 'Starsynth', album: '싱글/EP' },
+  { title: 'Venus', album: '싱글/EP' },
+  { title: 'N/A', album: '싱글/EP' },
+  { title: '혼', album: '싱글/EP' },
+  { title: 'Brand new day', album: '싱글/EP' },
+  { title: "Can't wait", album: '싱글/EP' },
+  { title: '숨', album: '싱글/EP' },
+  { title: '종', album: '싱글/EP' },
+  { title: '멸', album: '싱글/EP' },
+  { title: '문', album: '싱글/EP' },
+  { title: 'Otherside', album: '싱글/EP' },
+  { title: 'DNCM', album: '싱글/EP' },
+  { title: 'Athena', album: '싱글/EP' },
 ];
 
 // 앨범별로 그룹핑
