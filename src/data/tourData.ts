@@ -6,7 +6,7 @@ export const tourData: TourInfo = {
   tourName: '비행',
   year: 2026,
   description: '솔루션스 2026 전국투어 비행',
-  posterUrl: '/poster.jpg', // public 폴더에 포스터 이미지 추가 필요
+  posterUrl: '/poster.gif',
   tourDates: [
     {
       id: 'chuncheon-1',
@@ -49,7 +49,7 @@ export const tourData: TourInfo = {
       playlistLinks: {},
       featuredTweets: [],
       expectedSetlistSize: 22,
-      ticketLink: 'https://ticket.interpark.com', // 실제 링크로 교체 필요
+      ticketLink: 'https://nol.yanolja.com/ticket/places/25000656/products/25018449',
     },
     {
       id: 'busan-1',
@@ -61,7 +61,7 @@ export const tourData: TourInfo = {
       playlistLinks: {},
       featuredTweets: [],
       expectedSetlistSize: 22,
-      ticketLink: 'https://ticket.interpark.com',
+      ticketLink: 'https://nol.yanolja.com/ticket/places/25001737/products/25018477',
     },
     {
       id: 'daegu-1',
@@ -73,7 +73,7 @@ export const tourData: TourInfo = {
       playlistLinks: {},
       featuredTweets: [],
       expectedSetlistSize: 22,
-      ticketLink: 'https://ticket.interpark.com',
+      ticketLink: 'https://nol.yanolja.com/ticket/places/15711625/products/25018464',
     },
     {
       id: 'daejeon-1',
@@ -85,7 +85,7 @@ export const tourData: TourInfo = {
       playlistLinks: {},
       featuredTweets: [],
       expectedSetlistSize: 22,
-      ticketLink: 'https://ticket.interpark.com',
+      ticketLink: 'https://nol.yanolja.com/ticket/places/25001729/products/25018433',
     },
     {
       id: 'seoul-1',
@@ -97,7 +97,7 @@ export const tourData: TourInfo = {
       playlistLinks: {},
       featuredTweets: [],
       expectedSetlistSize: 22,
-      ticketLink: 'https://ticket.interpark.com',
+      ticketLink: 'https://nol.yanolja.com/ticket/places/25000234/products/25018413',
     },
   ],
 };
