@@ -573,6 +573,50 @@ body {
   border-color: var(--accent-color);
 }
 
+.vote-form-email {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.vote-form-email label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.vote-form-email input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  background-color: #0a0a0a !important;
+  color: #ffffff !important;
+}
+
+.vote-form-email input::placeholder {
+  color: var(--text-secondary);
+}
+
+.vote-form-email input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.vote-form-email-hint {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.vote-form-email-sent {
+  font-size: 0.8rem;
+  color: #00b894;
+  font-weight: 500;
+}
+
 .vote-form-counter {
   text-align: center;
   padding: 0.75rem;
