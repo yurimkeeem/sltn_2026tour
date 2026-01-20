@@ -642,16 +642,48 @@ body {
   border-color: var(--accent-color);
 }
 
-.vote-form-email {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+/* 메일 수신 여부 라디오 버튼 */
+.vote-form-email-option {
   margin-bottom: 1rem;
 }
 
-.vote-form-email label {
+.vote-form-email-label {
   font-size: 0.9rem;
   color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.vote-form-radio-group {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.vote-form-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.vote-form-radio input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-color);
+  cursor: pointer;
+}
+
+/* 이메일 입력 섹션 (예 선택 시) */
+.vote-form-email-section {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.vote-form-email {
+  margin-bottom: 0.75rem;
 }
 
 .vote-form-email input {
@@ -674,16 +706,39 @@ body {
   border-color: var(--accent-color);
 }
 
-.vote-form-email-hint {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  opacity: 0.8;
+/* 개인정보 동의 체크박스 */
+.vote-form-privacy {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  cursor: pointer;
 }
 
-.vote-form-email-sent {
-  font-size: 0.8rem;
-  color: #00b894;
-  font-weight: 500;
+.vote-form-privacy input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--accent-color);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.vote-form-privacy-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.vote-form-privacy-text strong {
+  font-weight: 600;
+}
+
+.vote-form-privacy-detail {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
 }
 
 .vote-form-counter {

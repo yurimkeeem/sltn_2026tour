@@ -18,7 +18,9 @@ export function SetlistVoteForm({
   onClose,
 }: SetlistVoteFormProps) {
   const [nickname, setNickname] = useState('');
+  const [wantEmail, setWantEmail] = useState(false); // 메일 수신 여부
   const [email, setEmail] = useState('');
+  const [privacyAgreed, setPrivacyAgreed] = useState(false); // 개인정보 동의
   const [selectedSongs, setSelectedSongs] = useState<string[]>([]);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -49,10 +51,22 @@ export function SetlistVoteForm({
       return;
     }
 
+    // 메일 수신 선택 시 이메일과 동의 필수
+    if (wantEmail) {
+      if (!email.trim()) {
+        setError('이메일 주소를 입력해주세요!');
+        return;
+      }
+      if (!privacyAgreed) {
+        setError('개인정보 수집·이용에 동의해주세요!');
+        return;
+      }
+    }
+
     setSubmitting(true);
     try {
-      // 이메일 미입력 시 기본값 설정 (Google Forms 수집을 위해 필요)
-      const emailToSubmit = email.trim() || 'no-reply@solutions-tour.local';
+      // 메일 수신 안 함 선택 시 테스트 이메일 사용
+      const emailToSubmit = wantEmail ? email.trim() : 'no-reply@solutions-tour.local';
       await submitVote(tourDateId, nickname.trim(), selectedSongs, emailToSubmit);
 
       onVoteSubmitted();
@@ -90,19 +104,56 @@ export function SetlistVoteForm({
             />
           </div>
 
-          <div className="vote-form-email">
-            <label htmlFor="email">이메일 (선택)</label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="결과를 받아볼 이메일 주소"
-            />
-            <span className="vote-form-email-hint">
-              입력 시 투표 결과가 이메일로 자동 전송됩니다
-            </span>
+          <div className="vote-form-email-option">
+            <p className="vote-form-email-label">메일로 작성 내용 받기</p>
+            <div className="vote-form-radio-group">
+              <label className="vote-form-radio">
+                <input
+                  type="radio"
+                  name="wantEmail"
+                  checked={!wantEmail}
+                  onChange={() => setWantEmail(false)}
+                />
+                <span>아니오</span>
+              </label>
+              <label className="vote-form-radio">
+                <input
+                  type="radio"
+                  name="wantEmail"
+                  checked={wantEmail}
+                  onChange={() => setWantEmail(true)}
+                />
+                <span>예</span>
+              </label>
+            </div>
           </div>
+
+          {wantEmail && (
+            <div className="vote-form-email-section">
+              <div className="vote-form-email">
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="이메일 주소를 입력하세요"
+                />
+              </div>
+              <label className="vote-form-privacy">
+                <input
+                  type="checkbox"
+                  checked={privacyAgreed}
+                  onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                />
+                <span className="vote-form-privacy-text">
+                  <strong>개인정보 수집·이용 동의 (필수)</strong>
+                  <span className="vote-form-privacy-detail">
+                    수집 항목: 이메일 | 수집 목적: 선택한 예상 셋리스트 폼 정보 발송 | 보유 기간: 메일 발송 이후 즉시 파기
+                  </span>
+                </span>
+              </label>
+            </div>
+          )}
 
           <div className="vote-form-counter">
             선택: <strong>{selectedSongs.length}</strong>곡 (최대 {maxSongs}곡)
