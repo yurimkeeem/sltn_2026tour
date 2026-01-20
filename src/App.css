@@ -1085,9 +1085,6 @@ body {
 .mobile-progress-section {
   padding: 1rem;
   background: var(--card-bg);
-  position: sticky;
-  top: var(--mobile-header-height, 44px);
-  z-index: 99;
   border-bottom: 1px solid var(--border-color);
 }
 
