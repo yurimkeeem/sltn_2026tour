@@ -1513,6 +1513,7 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   animation: toastFadeInOut 2.5s ease-in-out;
+  white-space: nowrap;
 }
 
 @keyframes toastFadeInOut {
