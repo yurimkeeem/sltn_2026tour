@@ -81,7 +81,7 @@ body {
 /* 메인 컨텐츠 */
 .main-content {
   display: grid;
-  grid-template-columns: 250px 1fr 380px;
+  grid-template-columns: 250px minmax(300px, 1fr) 450px;
   flex: 1;
   overflow: hidden;
 }
@@ -240,6 +240,9 @@ body {
 .setlist {
   list-style: none;
   counter-reset: setlist;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
 }
 
 .setlist-item {
@@ -968,7 +971,7 @@ body {
 
 /* 모바일 CSS 변수 */
 .app--mobile {
-  --mobile-header-height: 44px;
+  --mobile-header-height: 48px;
 }
 
 /* 모바일 앱 레이아웃 */
@@ -983,7 +986,8 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  height: var(--mobile-header-height);
+  min-height: var(--mobile-header-height);
+  height: auto;
 }
 
 /* 모바일 헤더 한 줄 표시 */
@@ -1106,7 +1110,7 @@ body {
 
 .schedule-chip {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   gap: 0.125rem;
   padding: 0.5rem 0.75rem;
@@ -1296,8 +1300,22 @@ body {
   display: none;
 }
 
-/* 모바일에서 포스터 숨기기 */
-.app--mobile .poster-section {
+/* 모바일 포스터 섹션 (빈 상태일 때만 표시) */
+.mobile-poster-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.mobile-poster-section .tour-poster {
+  max-width: 280px;
+  max-height: none;
+  border-radius: 12px;
+}
+
+/* 사이드바 내 포스터는 모바일에서 숨김 */
+.app--mobile .sidebar .poster-section {
   display: none;
 }
 
@@ -1333,5 +1351,10 @@ body {
   .tour-year {
     font-size: 0.7rem;
     padding: 0.15rem 0.5rem;
+  }
+
+  /* 모바일에서 셋리스트 1열로 */
+  .setlist {
+    grid-template-columns: 1fr;
   }
 }

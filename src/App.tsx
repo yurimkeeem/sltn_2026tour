@@ -80,12 +80,19 @@ function App() {
             </div>
           </section>
 
-          {/* 상세 정보 */}
-          {selectedTourDate && (
+          {/* 상세 정보 또는 포스터 */}
+          {selectedTourDate ? (
             <section id="detail-section" className="mobile-section">
               <DetailPanel
                 tourDate={selectedTourDate}
                 onClose={handleCloseDetail}
+              />
+            </section>
+          ) : (
+            <section className="mobile-poster-section">
+              <TourPoster
+                posterUrl={tourData.posterUrl}
+                tourName={tourData.tourName}
               />
             </section>
           )}
