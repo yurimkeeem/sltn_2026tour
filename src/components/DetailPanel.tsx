@@ -21,9 +21,12 @@ function isUpcoming(dateString: string): boolean {
   return concertDate > today;
 }
 
+type TabType = 'setlist' | 'prediction';
+
 export function DetailPanel({ tourDate, onClose }: DetailPanelProps) {
   const [showVoteForm, setShowVoteForm] = useState(false);
   const [voteKey, setVoteKey] = useState(0); // 투표 결과 갱신용
+  const [activeTab, setActiveTab] = useState<TabType>('setlist'); // 탭 상태
 
   if (!tourDate) {
     return (
@@ -96,15 +99,40 @@ export function DetailPanel({ tourDate, onClose }: DetailPanelProps) {
             />
           </>
         ) : (
-          // 공연 완료: 실제 셋리스트
+          // 공연 완료: 탭으로 셋리스트 / 예측 결과 전환
           <>
-            <div id="setlist-section">
-              <SetlistDisplay setlist={tourDate.setlist} />
+            <div className="detail-tabs">
+              <button
+                className={`detail-tab ${activeTab === 'setlist' ? 'detail-tab--active' : ''}`}
+                onClick={() => setActiveTab('setlist')}
+              >
+                셋리스트
+              </button>
+              <button
+                className={`detail-tab ${activeTab === 'prediction' ? 'detail-tab--active' : ''}`}
+                onClick={() => setActiveTab('prediction')}
+              >
+                예측 결과
+              </button>
             </div>
-            <PlaylistLinks links={tourDate.playlistLinks} />
-            <div id="tweets-section">
-              <TweetPreview tweets={tourDate.featuredTweets} />
-            </div>
+
+            {activeTab === 'setlist' ? (
+              <>
+                <div id="setlist-section">
+                  <SetlistDisplay setlist={tourDate.setlist} />
+                </div>
+                <PlaylistLinks links={tourDate.playlistLinks} />
+                <div id="tweets-section">
+                  <TweetPreview tweets={tourDate.featuredTweets} />
+                </div>
+              </>
+            ) : (
+              <SetlistPrediction
+                key={voteKey}
+                tourDateId={tourDate.id}
+                maxSongs={defaultSetlistSize}
+              />
+            )}
           </>
         )}
       </div>

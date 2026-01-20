@@ -3,8 +3,8 @@
 
 import type { SetlistVote, SongVoteResult } from '../types';
 
-const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEET_ID;
-const FORM_ID = import.meta.env.VITE_GOOGLE_FORM_ID;
+const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEETS_ID;
+const FORM_ID = import.meta.env.VITE_GOOGLE_FORMS_ID;
 
 // Google Sheets를 JSON으로 읽어오는 URL
 function getSheetJsonUrl(): string {
@@ -24,6 +24,7 @@ interface SheetRow {
 }
 
 // Sheets 데이터 파싱
+// Google Form 컬럼 순서: [타임스탬프, 이메일, tourDateId, nickname, songs]
 function parseSheetData(jsonText: string): SheetRow[] {
   // Google Sheets JSON 응답은 "google.visualization.Query.setResponse(...)" 형태
   const jsonMatch = jsonText.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
@@ -35,11 +36,12 @@ function parseSheetData(jsonText: string): SheetRow[] {
 
     return rows.map((row: { c: Array<{ v: string } | null> }) => {
       const cells = row.c;
+      // 이메일 수집 활성화 시: [타임스탬프(0), 이메일(1), tourDateId(2), nickname(3), songs(4)]
       return {
         timestamp: cells[0]?.v || '',
-        tourDateId: cells[1]?.v || '',
-        nickname: cells[2]?.v || '',
-        songs: cells[3]?.v || '',
+        tourDateId: cells[2]?.v || '',
+        nickname: cells[3]?.v || '',
+        songs: cells[4]?.v || '',
       };
     }).filter((row: SheetRow) => row.tourDateId && row.songs);
   } catch (e) {
@@ -122,20 +124,24 @@ export async function fetchTotalVoters(tourDateId: string): Promise<number> {
 export async function submitVoteToForm(
   tourDateId: string,
   nickname: string,
-  selectedSongs: string[]
+  selectedSongs: string[],
+  email?: string
 ): Promise<boolean> {
   if (!FORM_ID) {
     console.warn('VITE_GOOGLE_FORM_ID not set');
     return false;
   }
 
-  // Google Form 필드 ID를 찾아야 함
-  // Form을 만든 후 entry.XXXXXX 형태의 ID를 확인해서 아래에 입력
-  // 예시 ID - 실제 Form 생성 후 수정 필요!
   const formData = new FormData();
-  formData.append('entry.1234567890', tourDateId);  // tourDateId 필드
-  formData.append('entry.0987654321', nickname);     // nickname 필드
-  formData.append('entry.1122334455', selectedSongs.join(', ')); // songs 필드
+  formData.append('entry.1553378317', tourDateId);  // tourDateId 필드
+  formData.append('entry.412713598', nickname);     // nickname 필드
+  formData.append('entry.1309951225', selectedSongs.join(', ')); // songs 필드
+
+  // 이메일이 있으면 Google Forms의 이메일 수집 필드에 추가
+  // Google Forms의 "응답자에게 응답 사본 전송" 기능이 이 이메일로 발송됨
+  if (email) {
+    formData.append('emailAddress', email);
+  }
 
   try {
     // Google Form은 CORS를 허용하지 않아서 iframe 또는 no-cors 모드 사용

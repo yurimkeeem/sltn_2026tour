@@ -22,7 +22,6 @@ export function SetlistVoteForm({
   const [selectedSongs, setSelectedSongs] = useState<string[]>([]);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const [showEmailSent, setShowEmailSent] = useState(false);
 
   const handleSongToggle = (song: string) => {
     setError('');
@@ -35,22 +34,6 @@ export function SetlistVoteForm({
       }
       setSelectedSongs([...selectedSongs, song]);
     }
-  };
-
-  const sendEmailWithSetlist = () => {
-    if (!email.trim()) return;
-
-    const subject = encodeURIComponent(`[솔루션스 투어 비행] ${city} 셋리스트 예측`);
-    const body = encodeURIComponent(
-      `🎵 ${city} 공연 셋리스트 예측\n\n` +
-      `닉네임: ${nickname}\n` +
-      `선택한 곡 (${selectedSongs.length}곡):\n\n` +
-      selectedSongs.map((song, i) => `${i + 1}. ${song}`).join('\n') +
-      `\n\n---\n솔루션스 2026 전국투어 비행\nhttps://solutions-tour.vercel.app`
-    );
-
-    window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
-    setShowEmailSent(true);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -68,12 +51,9 @@ export function SetlistVoteForm({
 
     setSubmitting(true);
     try {
-      await submitVote(tourDateId, nickname.trim(), selectedSongs);
-
-      // 이메일이 입력되어 있으면 메일 전송
-      if (email.trim()) {
-        sendEmailWithSetlist();
-      }
+      // 이메일 미입력 시 기본값 설정 (Google Forms 수집을 위해 필요)
+      const emailToSubmit = email.trim() || 'no-reply@solutions-tour.local';
+      await submitVote(tourDateId, nickname.trim(), selectedSongs, emailToSubmit);
 
       onVoteSubmitted();
     } catch (err) {
@@ -90,14 +70,14 @@ export function SetlistVoteForm({
           ✕
         </button>
 
-        <header className="vote-form-header">
-          <h2>🎵 {city} 셋리스트 맞추기</h2>
-          <p>
-            예상되는 셋리스트를 선택해주세요! (최대 <strong>{maxSongs}곡</strong>)
-          </p>
-        </header>
-
         <form onSubmit={handleSubmit}>
+          <header className="vote-form-header">
+            <h2>🎵 {city} 셋리스트 맞추기</h2>
+            <p>
+              예상되는 셋리스트를 선택해주세요! (최대 <strong>{maxSongs}곡</strong>)
+            </p>
+          </header>
+
           <div className="vote-form-nickname">
             <label htmlFor="nickname">닉네임</label>
             <input
@@ -120,11 +100,8 @@ export function SetlistVoteForm({
               placeholder="결과를 받아볼 이메일 주소"
             />
             <span className="vote-form-email-hint">
-              입력 시 선택한 셋리스트가 이메일로 전송됩니다
+              입력 시 투표 결과가 이메일로 자동 전송됩니다
             </span>
-            {showEmailSent && (
-              <span className="vote-form-email-sent">✓ 메일 앱이 열렸습니다</span>
-            )}
           </div>
 
           <div className="vote-form-counter">

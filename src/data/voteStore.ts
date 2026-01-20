@@ -98,7 +98,8 @@ export async function getTotalVoters(tourDateId: string): Promise<number> {
 export async function submitVote(
   tourDateId: string,
   odepourNickname: string,
-  selectedSongs: string[]
+  selectedSongs: string[],
+  email?: string
 ): Promise<SetlistVote> {
   const newVote: SetlistVote = {
     odepourId: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
@@ -107,9 +108,9 @@ export async function submitVote(
     votedAt: new Date().toISOString(),
   };
 
-  // Google Form이 설정되어 있으면 Form으로 제출
+  // Google Form이 설정되어 있으면 Form으로 제출 (이메일 포함)
   if (isGoogleFormConfigured()) {
-    await submitVoteToForm(tourDateId, odepourNickname, selectedSongs);
+    await submitVoteToForm(tourDateId, odepourNickname, selectedSongs, email);
   }
 
   // 로컬에도 저장 (즉시 확인용)
@@ -129,3 +130,21 @@ export function getMyVote(
 
 // Google Sheets 설정 상태 확인
 export { isGoogleSheetsConfigured, isGoogleFormConfigured };
+
+// 로컬 스토리지 투표 데이터 초기화 (디버그/리셋용)
+export function clearLocalVotes(tourDateId?: string): void {
+  if (tourDateId) {
+    // 특정 공연만 초기화
+    const allVotes = getAllVotesLocal();
+    delete allVotes[tourDateId];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(allVotes));
+  } else {
+    // 전체 초기화
+    localStorage.removeItem(STORAGE_KEY);
+  }
+}
+
+// 전체 로컬 투표 데이터 초기화
+export function clearAllLocalVotes(): void {
+  localStorage.removeItem(STORAGE_KEY);
+}

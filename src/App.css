@@ -223,6 +223,37 @@ body {
   margin-top: 0.5rem;
 }
 
+/* 탭 UI */
+.detail-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detail-tab {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.detail-tab:hover {
+  color: var(--text-primary);
+  background: var(--card-hover);
+}
+
+.detail-tab--active {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
+}
+
 /* 셋리스트 */
 .setlist-section {
   margin-bottom: 1.5rem;
@@ -515,11 +546,44 @@ body {
   border-radius: 16px;
   max-width: 600px;
   width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-height: calc(100vh - 2rem);
+  overflow: hidden; /* 외부 모달은 overflow hidden으로 round 유지 */
   position: relative;
-  padding: 2rem;
   border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.vote-form-modal > button.vote-form-close {
+  position: absolute;
+  z-index: 10;
+}
+
+.vote-form-modal > form {
+  overflow-y: auto;
+  padding: 1.5rem;
+  flex: 1;
+  /* 모바일 스타일 스크롤바 */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+/* Webkit 브라우저 (Chrome, Safari, Edge) */
+.vote-form-modal > form::-webkit-scrollbar {
+  width: 6px;
+}
+
+.vote-form-modal > form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.vote-form-modal > form::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.vote-form-modal > form::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .vote-form-close {
@@ -632,9 +696,30 @@ body {
 }
 
 .vote-form-songs {
-  max-height: 400px;
+  max-height: min(400px, 45vh);
   overflow-y: auto;
   margin-bottom: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.75rem; /* 좌측 배지 공간 */
+  /* 모바일 스타일 스크롤바 */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.vote-form-songs::-webkit-scrollbar {
+  width: 6px;
+}
+
+.vote-form-songs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.vote-form-songs::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.vote-form-songs::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .vote-album-section {
