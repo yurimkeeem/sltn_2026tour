@@ -98,6 +98,7 @@ export const discography = [
   { title: '지금 나보다', album: '싱글/OST' },
   { title: '들꽃', album: '싱글/OST' },
   { title: 'Forever Young', album: '싱글/OST' },
+  { title: 'Shine on me', album: '싱글/OST' },
 ];
 
 // 앨범별로 그룹핑
