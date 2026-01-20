@@ -66,7 +66,7 @@ export const discography = [
   { title: 'Dance With Me', album: 'EP LOAD' },
   { title: 'Night Swim', album: 'EP LOAD' },
   { title: '까만 밤', album: 'EP LOAD' },
-  { title: 'Oceanian', album: 'EP LOAD' },
+  { title: 'Oceania', album: 'EP LOAD' },
   { title: 'RUN', album: 'EP LOAD' },
 
   // EP - TIME
