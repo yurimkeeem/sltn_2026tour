@@ -7,8 +7,10 @@ const SHEET_ID = import.meta.env.VITE_GOOGLE_SHEETS_ID;
 const FORM_ID = import.meta.env.VITE_GOOGLE_FORMS_ID;
 
 // Google Sheets를 JSON으로 읽어오는 URL
+// tq 파라미터로 SQL 쿼리 사용: 이메일(B) 컬럼 제외하고 A, C, D, E만 선택
 function getSheetJsonUrl(): string {
-  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+  const query = encodeURIComponent('SELECT A, C, D, E');
+  return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&tq=${query}`;
 }
 
 // Google Form 제출 URL
@@ -24,7 +26,8 @@ interface SheetRow {
 }
 
 // Sheets 데이터 파싱
-// Google Form 컬럼 순서: [타임스탬프, 이메일, tourDateId, nickname, songs]
+// SELECT A, C, D, E 쿼리 결과: [타임스탬프(A), tourDateId(C), nickname(D), songs(E)]
+// 이메일(B) 컬럼은 서버 응답에 포함되지 않음 → 클라이언트에서 절대 노출 안됨
 function parseSheetData(jsonText: string): SheetRow[] {
   // Google Sheets JSON 응답은 "google.visualization.Query.setResponse(...)" 형태
   const jsonMatch = jsonText.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
@@ -36,12 +39,12 @@ function parseSheetData(jsonText: string): SheetRow[] {
 
     return rows.map((row: { c: Array<{ v: string } | null> }) => {
       const cells = row.c;
-      // 이메일 수집 활성화 시: [타임스탬프(0), 이메일(1), tourDateId(2), nickname(3), songs(4)]
+      // SELECT A, C, D, E → [0: 타임스탬프, 1: tourDateId, 2: nickname, 3: songs]
       return {
         timestamp: cells[0]?.v || '',
-        tourDateId: cells[2]?.v || '',
-        nickname: cells[3]?.v || '',
-        songs: cells[4]?.v || '',
+        tourDateId: cells[1]?.v || '',
+        nickname: cells[2]?.v || '',
+        songs: cells[3]?.v || '',
       };
     }).filter((row: SheetRow) => row.tourDateId && row.songs);
   } catch (e) {
