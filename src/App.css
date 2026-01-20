@@ -916,17 +916,18 @@ body {
   flex-shrink: 0;
 }
 
-.prediction-item:nth-child(1) .prediction-rank {
+/* 상위 셋리스트에만 금은동 적용 (전체 득표 현황은 제외) */
+.prediction-list:not(.prediction-list--full) > .prediction-item:nth-child(1) .prediction-rank {
   background: #ffd700;
   color: #0a0a0a;
 }
 
-.prediction-item:nth-child(2) .prediction-rank {
+.prediction-list:not(.prediction-list--full) > .prediction-item:nth-child(2) .prediction-rank {
   background: #c0c0c0;
   color: #0a0a0a;
 }
 
-.prediction-item:nth-child(3) .prediction-rank {
+.prediction-list:not(.prediction-list--full) > .prediction-item:nth-child(3) .prediction-rank {
   background: #cd7f32;
   color: #0a0a0a;
 }
