@@ -1,9 +1,21 @@
+import { useState, useEffect } from 'react';
+
 interface MobileQuickNavProps {
   hasSetlist: boolean;
   hasTweets: boolean;
+  hasSelectedRegion: boolean;
 }
 
-export function MobileQuickNav({ hasSetlist, hasTweets }: MobileQuickNavProps) {
+export function MobileQuickNav({ hasSetlist, hasTweets, hasSelectedRegion }: MobileQuickNavProps) {
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => setToastMessage(null), 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage]);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -11,21 +23,42 @@ export function MobileQuickNav({ hasSetlist, hasTweets }: MobileQuickNavProps) {
     }
   };
 
+  const handleSetlistClick = () => {
+    if (!hasSelectedRegion) {
+      setToastMessage('지역을 먼저 선택해주세요!');
+      return;
+    }
+    scrollToSection('setlist-section');
+  };
+
+  const handleTweetsClick = () => {
+    if (!hasSelectedRegion) {
+      setToastMessage('지역을 먼저 선택해주세요!');
+      return;
+    }
+    scrollToSection('tweets-section');
+  };
+
   return (
-    <nav className="mobile-quick-nav">
-      <button onClick={() => scrollToSection('schedule-section')}>
-        <span>📅</span> 공연일정
-      </button>
-      {hasSetlist && (
-        <button onClick={() => scrollToSection('setlist-section')}>
-          <span>🎵</span> 셋리스트
+    <>
+      <nav className="mobile-quick-nav">
+        <button onClick={() => scrollToSection('schedule-section')}>
+          <span>📅</span> 공연일정
         </button>
+        {hasSetlist && (
+          <button onClick={handleSetlistClick}>
+            <span>🎵</span> 셋리스트
+          </button>
+        )}
+        {hasTweets && (
+          <button onClick={handleTweetsClick}>
+            <span>💬</span> HIT TWEETS
+          </button>
+        )}
+      </nav>
+      {toastMessage && (
+        <div className="toast-alert">{toastMessage}</div>
       )}
-      {hasTweets && (
-        <button onClick={() => scrollToSection('tweets-section')}>
-          <span>💬</span> HIT TWEETS
-        </button>
-      )}
-    </nav>
+    </>
   );
 }

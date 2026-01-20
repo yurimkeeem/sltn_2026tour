@@ -57,7 +57,7 @@ function App() {
               selectedId={selectedTourDate?.id}
               onSelect={handleMarkerClick}
             />
-            <MobileQuickNav hasSetlist={hasAnySetlist} hasTweets={hasAnyTweets} />
+            <MobileQuickNav hasSetlist={hasAnySetlist} hasTweets={hasAnyTweets} hasSelectedRegion={!!selectedTourDate} />
           </section>
 
           {/* 공연 일정 섹션 - 칩 가로스크롤 */}
