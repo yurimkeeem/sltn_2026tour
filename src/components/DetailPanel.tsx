@@ -88,7 +88,7 @@ export function DetailPanel({ tourDate, onClose }: DetailPanelProps) {
                 🎵 셋리스트 맞추기
               </button>
               <p className="vote-description">
-                이 공연의 셋리스트를 예측하고 다른 팬들과 비교해보세요!
+                이 공연의 셋리스트를 예측하고<br />다른 팬들과 비교해 보세요!
               </p>
             </div>
 
