@@ -272,10 +272,15 @@ body {
   list-style: none;
   counter-reset: setlist;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-rows: repeat(10, auto);
   grid-auto-flow: column;
   gap: 0 1.5rem;
+}
+
+.setlist-item .song-title {
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .setlist-item {
