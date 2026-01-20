@@ -72,7 +72,7 @@ export async function fetchAllVotes(): Promise<Record<string, SetlistVote[]>> {
       const vote: SetlistVote = {
         odepourId: `sheet-${index}-${row.timestamp}`,
         odepourNickname: row.nickname,
-        selectedSongs: row.songs.split(',').map(s => s.trim()).filter(Boolean),
+        selectedSongs: row.songs.split('|').map(s => s.trim()).filter(Boolean),
         votedAt: row.timestamp,
       };
 
@@ -139,7 +139,7 @@ export async function submitVoteToForm(
   const formData = new FormData();
   formData.append('entry.1553378317', tourDateId);  // tourDateId 필드
   formData.append('entry.412713598', nickname);     // nickname 필드
-  formData.append('entry.1309951225', selectedSongs.join(', ')); // songs 필드
+  formData.append('entry.1309951225', selectedSongs.join(' | ')); // songs 필드 (파이프 구분자)
 
   // 이메일이 있으면 Google Forms의 이메일 수집 필드에 추가
   // Google Forms의 "응답자에게 응답 사본 전송" 기능이 이 이메일로 발송됨
