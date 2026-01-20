@@ -240,10 +240,10 @@ body {
 .setlist {
   list-style: none;
   counter-reset: setlist;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  max-height: 550px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(10, auto);
+  grid-auto-flow: column;
   gap: 0 1.5rem;
 }
 
