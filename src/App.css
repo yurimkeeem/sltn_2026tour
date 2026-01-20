@@ -240,9 +240,11 @@ body {
 .setlist {
   list-style: none;
   counter-reset: setlist;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 550px;
+  gap: 0 1.5rem;
 }
 
 .setlist-item {
