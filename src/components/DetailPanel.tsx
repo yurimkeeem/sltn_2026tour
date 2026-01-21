@@ -5,6 +5,7 @@ import { PlaylistLinks } from './PlaylistLinks';
 import { TweetPreview } from './TweetPreview';
 import { SetlistVoteForm } from './SetlistVoteForm';
 import { SetlistPrediction } from './SetlistPrediction';
+import { CheerGuideModal } from './CheerGuideModal';
 
 interface DetailPanelProps {
   tourDate: TourDate | null;
@@ -25,6 +26,7 @@ type TabType = 'setlist' | 'prediction';
 
 export function DetailPanel({ tourDate, onClose }: DetailPanelProps) {
   const [showVoteForm, setShowVoteForm] = useState(false);
+  const [showCheerGuide, setShowCheerGuide] = useState(false);
   const [voteKey, setVoteKey] = useState(0); // 투표 결과 갱신용
   const [activeTab, setActiveTab] = useState<TabType>('setlist'); // 탭 상태
 
@@ -145,6 +147,10 @@ export function DetailPanel({ tourDate, onClose }: DetailPanelProps) {
           onVoteSubmitted={handleVoteSubmitted}
           onClose={() => setShowVoteForm(false)}
         />
+      )}
+
+      {showCheerGuide && (
+        <CheerGuideModal onClose={() => setShowCheerGuide(false)} />
       )}
     </div>
   );

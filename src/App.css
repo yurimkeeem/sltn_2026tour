@@ -1540,3 +1540,314 @@ body {
     transform: translateX(-50%) translateY(-10px);
   }
 }
+
+/* ============================================
+   알림장 모달 스타일
+   ============================================ */
+.cheer-guide-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.cheer-guide-modal {
+  background: var(--card-bg);
+  border-radius: 16px;
+  max-width: 720px;
+  width: 100%;
+  height: 580px; /* '혼' 기준 고정 높이 */
+  max-height: calc(100vh - 2rem);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.cheer-guide-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  z-index: 10;
+}
+
+.cheer-guide-close:hover {
+  color: var(--text-primary);
+}
+
+.cheer-guide-header {
+  text-align: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cheer-guide-header h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.cheer-guide-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* PC 레이아웃: 영상 | 가사 | 탭 */
+.cheer-guide-content {
+  display: grid;
+  grid-template-columns: 300px 1fr 120px;
+  grid-template-areas: "video lyrics tabs";
+  flex: 1;
+  min-height: 0; /* flex item이 overflow 작동하도록 */
+  overflow: hidden;
+}
+
+/* 곡 선택 탭 */
+.cheer-guide-tabs {
+  grid-area: tabs;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-left: 1px solid var(--border-color);
+  background: var(--bg-color);
+}
+
+.cheer-guide-tab {
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.cheer-guide-tab:hover {
+  border-color: var(--accent-light);
+  color: var(--text-primary);
+}
+
+.cheer-guide-tab--active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--primary-color);
+}
+
+/* 가사 영역 */
+.cheer-guide-lyrics {
+  grid-area: lyrics;
+  padding: 1.5rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.cheer-guide-lyrics::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cheer-guide-lyrics::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cheer-guide-lyrics::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.cheer-guide-song-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cheer-guide-lyrics-content {
+  line-height: 2;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.cheer-guide-lyrics-content p {
+  margin: 0;
+  min-height: 1.5em;
+}
+
+.cheer-guide-empty-line {
+  height: 1em;
+}
+
+.cheer-highlight {
+  color: #ffeb3b;
+  font-weight: 600;
+}
+
+.cheer-guide-note {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-style: italic;
+}
+
+/* 영상 영역 */
+.cheer-guide-video {
+  grid-area: video;
+  padding: 1rem;
+  border-right: 1px solid var(--border-color);
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cheer-guide-video-wrapper {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cheer-guide-video-wrapper blockquote {
+  margin: 0 !important;
+}
+
+.cheer-guide-video-wrapper iframe {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.cheer-guide-credit {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+/* 모바일 레이아웃 */
+@media (max-width: 768px) {
+  .cheer-guide-modal {
+    max-height: 90vh;
+  }
+
+  .cheer-guide-header {
+    padding: 1rem;
+  }
+
+  .cheer-guide-header h2 {
+    font-size: 1.25rem;
+  }
+
+  /* 모바일: 탭 | 가사 | 영상 (세로 배치) */
+  .cheer-guide-content {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    grid-template-areas: none;
+    overflow-y: auto;
+  }
+
+  /* 모바일 탭: 가로 스크롤 칩 */
+  .cheer-guide-tabs {
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-left: none;
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+    flex-shrink: 0;
+    order: 1;
+  }
+
+  .cheer-guide-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cheer-guide-tab {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+  }
+
+  /* 모바일 가사 */
+  .cheer-guide-lyrics {
+    padding: 1rem;
+    order: 2;
+    flex: 1;
+    min-height: 200px;
+  }
+
+  .cheer-guide-song-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .cheer-guide-lyrics-content {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  /* 모바일 영상: 하단 배치 */
+  .cheer-guide-video {
+    border-right: none;
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+    order: 3;
+    flex-shrink: 0;
+  }
+
+  .cheer-guide-video-wrapper {
+    max-height: 200px;
+  }
+}
+
+/* 알림장 버튼 (PC 사이드바) */
+.cheer-guide-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: calc(100% - 2rem);
+  margin: 1rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: 2px solid var(--accent-color);
+  border-radius: 8px;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cheer-guide-btn:hover {
+  background: var(--accent-color);
+  color: var(--primary-color);
+}
+
+.cheer-guide-btn span {
+  font-size: 1.1rem;
+}

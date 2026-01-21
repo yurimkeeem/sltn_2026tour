@@ -4,9 +4,10 @@ interface TourListProps {
   tourDates: TourDate[];
   selectedId?: string;
   onSelect: (tourDate: TourDate) => void;
+  onCheerGuideClick?: () => void;
 }
 
-export function TourList({ tourDates, selectedId, onSelect }: TourListProps) {
+export function TourList({ tourDates, selectedId, onSelect, onCheerGuideClick }: TourListProps) {
   return (
     <div className="tour-list">
       <h3 className="tour-list-title">📍 공연 일정</h3>
@@ -22,6 +23,11 @@ export function TourList({ tourDates, selectedId, onSelect }: TourListProps) {
           </li>
         ))}
       </ul>
+      {onCheerGuideClick && (
+        <button className="cheer-guide-btn" onClick={onCheerGuideClick}>
+          <span>📣</span> 알림장
+        </button>
+      )}
     </div>
   );
 }

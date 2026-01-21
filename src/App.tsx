@@ -6,12 +6,14 @@ import { DetailPanel } from './components/DetailPanel';
 import { TourPoster } from './components/TourPoster';
 import { TourProgressBar } from './components/TourProgressBar';
 import { MobileQuickNav } from './components/MobileQuickNav';
+import { CheerGuideModal } from './components/CheerGuideModal';
 import { tourData } from './data/tourData';
 import type { TourDate } from './types';
 import './App.css';
 
 function App() {
   const [selectedTourDate, setSelectedTourDate] = useState<TourDate | null>(null);
+  const [showCheerGuide, setShowCheerGuide] = useState(false);
   // SSR 안전: 초기값은 false, 클라이언트에서 체크
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window === 'undefined') return false;
@@ -57,7 +59,12 @@ function App() {
               selectedId={selectedTourDate?.id}
               onSelect={handleMarkerClick}
             />
-            <MobileQuickNav hasSetlist={hasAnySetlist} hasTweets={hasAnyTweets} hasSelectedRegion={!!selectedTourDate} />
+            <MobileQuickNav
+              hasSetlist={hasAnySetlist}
+              hasTweets={hasAnyTweets}
+              hasSelectedRegion={!!selectedTourDate}
+              onCheerGuideClick={() => setShowCheerGuide(true)}
+            />
           </section>
 
           {/* 공연 일정 섹션 - 칩 가로스크롤 */}
@@ -97,6 +104,10 @@ function App() {
             </section>
           )}
         </main>
+
+        {showCheerGuide && (
+          <CheerGuideModal onClose={() => setShowCheerGuide(false)} />
+        )}
       </div>
     );
   }
@@ -120,6 +131,7 @@ function App() {
             tourDates={tourData.tourDates}
             selectedId={selectedTourDate?.id}
             onSelect={handleMarkerClick}
+            onCheerGuideClick={() => setShowCheerGuide(true)}
           />
         </aside>
 
@@ -138,6 +150,10 @@ function App() {
           />
         </aside>
       </main>
+
+      {showCheerGuide && (
+        <CheerGuideModal onClose={() => setShowCheerGuide(false)} />
+      )}
     </div>
   );
 }
