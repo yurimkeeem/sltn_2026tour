@@ -44,11 +44,11 @@ export function MobileQuickNav({ hasSetlist, hasTweets, hasSelectedRegion, onChe
     <>
       <nav className="mobile-quick-nav">
         <button onClick={() => scrollToSection('schedule-section')}>
-          <span>📅</span> 공연일정
+          <span>📅</span> 일정
         </button>
         {hasSetlist && (
           <button onClick={handleSetlistClick}>
-            <span>🎵</span> 셋리스트
+            <span>🎵</span> 셋리
           </button>
         )}
         {hasTweets && (
