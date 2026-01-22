@@ -61,6 +61,9 @@ export function MarqueeBanner() {
           },
         ];
 
+  // 메시지 개수에 따른 동적 속도 계산 (메시지당 4초, 최소 10초)
+  const animationDuration = Math.max(displayMessages.length * 4, 10);
+
   // 메시지 렌더링 함수
   const renderMessages = (keyPrefix: string) =>
     displayMessages.map((msg, index) => (
@@ -75,11 +78,17 @@ export function MarqueeBanner() {
   return (
     <div className="marquee-banner">
       <div className="marquee-content">
-        <div className="marquee-track">
+        <div
+          className="marquee-track"
+          style={{ animationDuration: `${animationDuration}s` }}
+        >
           {renderMessages('a')}
           {renderMessages('b')}
         </div>
-        <div className="marquee-track marquee-track--clone">
+        <div
+          className="marquee-track marquee-track--clone"
+          style={{ animationDuration: `${animationDuration}s` }}
+        >
           {renderMessages('c')}
           {renderMessages('d')}
         </div>
