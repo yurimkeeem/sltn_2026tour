@@ -7,6 +7,8 @@ import { TourPoster } from './components/TourPoster';
 import { TourProgressBar } from './components/TourProgressBar';
 import { MobileQuickNav } from './components/MobileQuickNav';
 import { CheerGuideModal } from './components/CheerGuideModal';
+import { MarqueeBanner } from './components/MarqueeBanner';
+import { MarqueeSubmitModal } from './components/MarqueeSubmitModal';
 import { tourData } from './data/tourData';
 import type { TourDate } from './types';
 import './App.css';
@@ -14,6 +16,7 @@ import './App.css';
 function App() {
   const [selectedTourDate, setSelectedTourDate] = useState<TourDate | null>(null);
   const [showCheerGuide, setShowCheerGuide] = useState(false);
+  const [showMarqueeModal, setShowMarqueeModal] = useState(false);
   // SSR 안전: 초기값은 false, 클라이언트에서 체크
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window === 'undefined') return false;
@@ -50,6 +53,7 @@ function App() {
           tourName={tourData.tourName}
           year={tourData.year}
         />
+        <MarqueeBanner />
 
         <main className="mobile-content">
           {/* 프로그레스 바 + 퀵 네비게이션 */}
@@ -105,8 +109,21 @@ function App() {
           )}
         </main>
 
+        {/* 플로팅 메시지 버튼 */}
+        <button
+          className="marquee-floating-btn"
+          onClick={() => setShowMarqueeModal(true)}
+          aria-label="메시지 작성"
+        >
+          💬
+        </button>
+
         {showCheerGuide && (
           <CheerGuideModal onClose={() => setShowCheerGuide(false)} />
+        )}
+
+        {showMarqueeModal && (
+          <MarqueeSubmitModal onClose={() => setShowMarqueeModal(false)} />
         )}
       </div>
     );
@@ -120,6 +137,7 @@ function App() {
         tourName={tourData.tourName}
         year={tourData.year}
       />
+      <MarqueeBanner />
 
       <main className="main-content">
         <aside className="sidebar">
@@ -151,8 +169,21 @@ function App() {
         </aside>
       </main>
 
+      {/* 플로팅 메시지 버튼 */}
+      <button
+        className="marquee-floating-btn"
+        onClick={() => setShowMarqueeModal(true)}
+        aria-label="메시지 작성"
+      >
+        💬
+      </button>
+
       {showCheerGuide && (
         <CheerGuideModal onClose={() => setShowCheerGuide(false)} />
+      )}
+
+      {showMarqueeModal && (
+        <MarqueeSubmitModal onClose={() => setShowMarqueeModal(false)} />
       )}
     </div>
   );

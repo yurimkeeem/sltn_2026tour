@@ -1856,3 +1856,257 @@ body {
 .cheer-guide-btn span {
   font-size: 1.1rem;
 }
+
+/* ========================================
+   전광판 (Marquee Banner)
+   ======================================== */
+.marquee-banner {
+  background: linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+  border-bottom: 1px solid var(--border-color);
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-content {
+  display: flex;
+  overflow: hidden;
+  padding: 0.5rem 0;
+}
+
+.marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  animation: marquee-scroll 14s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.marquee-track--clone {
+  /* 두 번째 트랙은 첫 번째 바로 뒤에 붙어서 시작 */
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 2rem;
+}
+
+.marquee-nickname {
+  color: #ffeb3b;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.marquee-message {
+  color: var(--text-primary);
+  font-size: 0.85rem;
+}
+
+/* 플로팅 메시지 버튼 */
+.marquee-floating-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.marquee-floating-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* 전광판 모달 */
+.marquee-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.marquee-modal {
+  background: var(--card-bg);
+  border-radius: 16px;
+  max-width: 400px;
+  width: 100%;
+  padding: 1.5rem;
+  position: relative;
+  border: 1px solid var(--border-color);
+}
+
+.marquee-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.marquee-modal-close:hover {
+  color: var(--text-primary);
+}
+
+.marquee-modal-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.marquee-modal-header h3 {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.marquee-modal-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.marquee-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.marquee-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.marquee-form-group label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.marquee-form-group input,
+.marquee-form-group textarea {
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-family: inherit;
+  resize: none;
+}
+
+.marquee-form-group input:focus,
+.marquee-form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.marquee-char-count {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.marquee-submit-form-btn {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  padding: 0.875rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.marquee-submit-form-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.marquee-submit-form-btn:not(:disabled):hover {
+  opacity: 0.9;
+}
+
+/* 성공 상태 */
+.marquee-modal-success {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.marquee-success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: #4caf50;
+  color: white;
+  border-radius: 50%;
+  font-size: 2rem;
+  margin: 0 auto 1rem;
+}
+
+.marquee-modal-success h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.marquee-modal-success p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.marquee-done-btn {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* 모바일 전광판 및 플로팅 버튼 */
+@media (max-width: 768px) {
+  .marquee-floating-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+  }
+
+  .marquee-modal {
+    max-width: calc(100% - 2rem);
+  }
+}
