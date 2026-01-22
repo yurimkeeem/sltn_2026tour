@@ -944,6 +944,11 @@ body {
   margin-bottom: 0.25rem;
 }
 
+.prediction-song-title--matched {
+  color: #ffeb3b;
+  font-weight: 600;
+}
+
 .prediction-bar-container {
   height: 6px;
   background: var(--border-color);

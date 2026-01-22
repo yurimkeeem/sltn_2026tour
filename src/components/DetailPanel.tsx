@@ -133,6 +133,7 @@ export function DetailPanel({ tourDate, onClose }: DetailPanelProps) {
                 key={voteKey}
                 tourDateId={tourDate.id}
                 maxSongs={defaultSetlistSize}
+                actualSetlist={tourDate.setlist}
               />
             )}
           </>

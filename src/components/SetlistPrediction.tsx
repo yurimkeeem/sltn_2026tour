@@ -1,16 +1,24 @@
 import { useEffect, useState } from 'react';
 import { getVoteResults, getTotalVoters } from '../data/voteStore';
-import type { SongVoteResult } from '../types';
+import type { SongVoteResult, Song } from '../types';
 
 interface SetlistPredictionProps {
   tourDateId: string;
   maxSongs: number;
+  actualSetlist?: Song[]; // 실제 셋리스트 (공연 완료 시)
 }
 
 export function SetlistPrediction({
   tourDateId,
   maxSongs,
+  actualSetlist,
 }: SetlistPredictionProps) {
+  // 실제 셋리스트 곡 제목 Set (비교용)
+  const actualSongTitles = new Set(
+    actualSetlist?.map((song) => song.title.toLowerCase()) || []
+  );
+  const isInActualSetlist = (title: string) =>
+    actualSongTitles.size > 0 && actualSongTitles.has(title.toLowerCase());
   const [results, setResults] = useState<SongVoteResult[]>([]);
   const [totalVoters, setTotalVoters] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -64,34 +72,40 @@ export function SetlistPrediction({
       </p>
 
       <ol className="prediction-list">
-        {topSongs.map((song, index) => (
-          <li key={song.title} className="prediction-item">
-            <span className="prediction-rank">{index + 1}</span>
-            <div className="prediction-song-info">
-              <span className="prediction-song-title">{song.title}</span>
-              <div className="prediction-bar-container">
-                <div
-                  className="prediction-bar"
-                  style={{ width: `${song.percentage}%` }}
-                />
+        {topSongs.map((song, index) => {
+          const matched = isInActualSetlist(song.title);
+          return (
+            <li key={song.title} className={`prediction-item ${matched ? 'prediction-item--matched' : ''}`}>
+              <span className="prediction-rank">{index + 1}</span>
+              <div className="prediction-song-info">
+                <span className={`prediction-song-title ${matched ? 'prediction-song-title--matched' : ''}`}>{song.title}</span>
+                <div className="prediction-bar-container">
+                  <div
+                    className="prediction-bar"
+                    style={{ width: `${song.percentage}%` }}
+                  />
+                </div>
               </div>
-            </div>
-            <span className="prediction-percentage">{song.percentage}%</span>
-          </li>
-        ))}
+              <span className="prediction-percentage">{song.percentage}%</span>
+            </li>
+          );
+        })}
       </ol>
 
       {results.length > maxSongs && (
         <details className="prediction-more">
           <summary>전체 득표 현황 보기</summary>
           <ol className="prediction-list prediction-list--full" start={maxSongs + 1}>
-            {results.slice(maxSongs).map((song, index) => (
-              <li key={song.title} className="prediction-item prediction-item--small">
-                <span className="prediction-rank">{maxSongs + index + 1}</span>
-                <span className="prediction-song-title">{song.title}</span>
-                <span className="prediction-percentage">{song.percentage}%</span>
-              </li>
-            ))}
+            {results.slice(maxSongs).map((song, index) => {
+              const matched = isInActualSetlist(song.title);
+              return (
+                <li key={song.title} className={`prediction-item prediction-item--small ${matched ? 'prediction-item--matched' : ''}`}>
+                  <span className="prediction-rank">{maxSongs + index + 1}</span>
+                  <span className={`prediction-song-title ${matched ? 'prediction-song-title--matched' : ''}`}>{song.title}</span>
+                  <span className="prediction-percentage">{song.percentage}%</span>
+                </li>
+              );
+            })}
           </ol>
         </details>
       )}
