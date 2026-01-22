@@ -61,8 +61,8 @@ export function MarqueeBanner() {
           },
         ];
 
-  // 메시지 개수에 따른 동적 속도 계산 (메시지당 4초, 최소 10초)
-  const animationDuration = Math.max(displayMessages.length * 4, 10);
+  // 메시지 개수에 따른 동적 속도 계산 (메시지당 8초, 최소 10초)
+  const animationDuration = Math.max(displayMessages.length * 8, 10);
 
   // 메시지 렌더링 함수
   const renderMessages = (keyPrefix: string) =>
