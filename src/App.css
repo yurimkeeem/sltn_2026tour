@@ -1876,7 +1876,7 @@ body {
 .marquee-track {
   display: flex;
   flex-shrink: 0;
-  animation: marquee-scroll 14s linear infinite;
+  animation: marquee-scroll 18s linear infinite;
   white-space: nowrap;
   will-change: transform;
 }
