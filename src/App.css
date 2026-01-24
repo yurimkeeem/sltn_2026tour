@@ -268,14 +268,15 @@ body {
   color: var(--text-primary);
 }
 
-.setlist {
+.setlist-columns {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.setlist-column {
   list-style: none;
-  counter-reset: setlist;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: repeat(10, auto);
-  grid-auto-flow: column;
-  gap: 0 1.5rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .setlist-item .song-title {
@@ -1504,8 +1505,9 @@ body {
   }
 
   /* 모바일에서 셋리스트 1열로 */
-  .setlist {
-    grid-template-columns: 1fr;
+  .setlist-columns {
+    flex-direction: column;
+    gap: 0;
   }
 }
 
