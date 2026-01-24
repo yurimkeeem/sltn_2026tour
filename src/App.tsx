@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Header } from './components/Header';
 import { TourMap } from './components/TourMap';
 import { TourList } from './components/TourList';
@@ -10,11 +10,13 @@ import { CheerGuideModal } from './components/CheerGuideModal';
 import { MarqueeBanner } from './components/MarqueeBanner';
 import { MarqueeSubmitModal } from './components/MarqueeSubmitModal';
 import { tourData } from './data/tourData';
-import type { TourDate } from './types';
+import { fetchAllSetlists, isSetlistConfigured } from './data/setlistApi';
+import type { TourDate, Song } from './types';
 import './App.css';
 
 function App() {
   const [selectedTourDate, setSelectedTourDate] = useState<TourDate | null>(null);
+  const [dynamicSetlists, setDynamicSetlists] = useState<Record<string, Song[]>>({});
   const [showCheerGuide, setShowCheerGuide] = useState(false);
   const [showMarqueeModal, setShowMarqueeModal] = useState(false);
   // SSR 안전: 초기값은 false, 클라이언트에서 체크
@@ -32,6 +34,30 @@ function App() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Google Sheets에서 셋리스트 로드
+  useEffect(() => {
+    if (!isSetlistConfigured()) return;
+
+    const loadSetlists = async () => {
+      const setlists = await fetchAllSetlists();
+      setDynamicSetlists(setlists);
+    };
+
+    loadSetlists();
+  }, []);
+
+  // 동적 셋리스트가 있으면 tourData와 병합
+  const enrichedTourDates: TourDate[] = useMemo(() => {
+    return tourData.tourDates.map((td) => {
+      const dynamicSetlist = dynamicSetlists[td.city];
+      // 시트에서 가져온 셋리스트가 있으면 우선 사용
+      if (dynamicSetlist && dynamicSetlist.length > 0) {
+        return { ...td, setlist: dynamicSetlist };
+      }
+      return td;
+    });
+  }, [dynamicSetlists]);
+
   const handleMarkerClick = (tourDate: TourDate) => {
     setSelectedTourDate(tourDate);
   };
@@ -42,8 +68,8 @@ function App() {
 
   // 퀵 네비게이션용: 선택된 투어 기준으로 표시
   // 선택 전에는 모든 투어를 확인하여 셋리스트/트윗이 있는지 체크
-  const hasAnySetlist = tourData.tourDates.some(td => td.setlist?.length > 0);
-  const hasAnyTweets = tourData.tourDates.some(td => td.featuredTweets?.length > 0);
+  const hasAnySetlist = enrichedTourDates.some(td => td.setlist?.length > 0);
+  const hasAnyTweets = enrichedTourDates.some(td => td.featuredTweets?.length > 0);
 
   if (isMobile) {
     return (
@@ -59,7 +85,7 @@ function App() {
           {/* 프로그레스 바 + 퀵 네비게이션 */}
           <section className="mobile-progress-section">
             <TourProgressBar
-              tourDates={tourData.tourDates}
+              tourDates={enrichedTourDates}
               selectedId={selectedTourDate?.id}
               onSelect={handleMarkerClick}
             />
@@ -74,7 +100,7 @@ function App() {
           {/* 공연 일정 섹션 - 칩 가로스크롤 */}
           <section id="schedule-section" className="mobile-schedule-section">
             <div className="mobile-schedule-chips">
-              {tourData.tourDates.map((td) => {
+              {enrichedTourDates.map((td) => {
                 const isSelected = selectedTourDate?.id === td.id;
                 const isPast = new Date(td.date) < new Date(new Date().toDateString());
                 return (
@@ -146,7 +172,7 @@ function App() {
             tourName={tourData.tourName}
           />
           <TourList
-            tourDates={tourData.tourDates}
+            tourDates={enrichedTourDates}
             selectedId={selectedTourDate?.id}
             onSelect={handleMarkerClick}
             onCheerGuideClick={() => setShowCheerGuide(true)}
@@ -155,7 +181,7 @@ function App() {
 
         <section className="map-container">
           <TourMap
-            tourDates={tourData.tourDates}
+            tourDates={enrichedTourDates}
             onMarkerClick={handleMarkerClick}
             selectedId={selectedTourDate?.id}
           />
