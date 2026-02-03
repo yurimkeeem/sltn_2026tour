@@ -5,9 +5,10 @@ interface TourListProps {
   selectedId?: string;
   onSelect: (tourDate: TourDate) => void;
   onCheerGuideClick?: () => void;
+  onETAClick?: () => void;
 }
 
-export function TourList({ tourDates, selectedId, onSelect, onCheerGuideClick }: TourListProps) {
+export function TourList({ tourDates, selectedId, onSelect, onCheerGuideClick, onETAClick }: TourListProps) {
   return (
     <div className="tour-list">
       <h3 className="tour-list-title">📍 공연 일정</h3>
@@ -26,6 +27,11 @@ export function TourList({ tourDates, selectedId, onSelect, onCheerGuideClick }:
       {onCheerGuideClick && (
         <button className="cheer-guide-btn" onClick={onCheerGuideClick}>
           <span>📣</span> 알림장
+        </button>
+      )}
+      {onETAClick && (
+        <button className="eta-btn" onClick={onETAClick}>
+          <span>✈️</span> What's your ETA?
         </button>
       )}
     </div>

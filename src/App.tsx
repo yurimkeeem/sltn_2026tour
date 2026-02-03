@@ -7,6 +7,7 @@ import { TourPoster } from './components/TourPoster';
 import { TourProgressBar } from './components/TourProgressBar';
 import { MobileQuickNav } from './components/MobileQuickNav';
 import { CheerGuideModal } from './components/CheerGuideModal';
+import { TicketIssuanceModal } from './components/TicketIssuanceModal';
 import { MarqueeBanner } from './components/MarqueeBanner';
 import { MarqueeSubmitModal } from './components/MarqueeSubmitModal';
 import { tourData } from './data/tourData';
@@ -18,6 +19,7 @@ function App() {
   const [selectedTourDate, setSelectedTourDate] = useState<TourDate | null>(null);
   const [dynamicSetlists, setDynamicSetlists] = useState<Record<string, Song[]>>({});
   const [showCheerGuide, setShowCheerGuide] = useState(false);
+  const [showTicketIssuance, setShowTicketIssuance] = useState(false);
   const [showMarqueeModal, setShowMarqueeModal] = useState(false);
   // SSR 안전: 초기값은 false, 클라이언트에서 체크
   const [isMobile, setIsMobile] = useState(() => {
@@ -94,6 +96,7 @@ function App() {
               hasTweets={hasAnyTweets}
               hasSelectedRegion={!!selectedTourDate}
               onCheerGuideClick={() => setShowCheerGuide(true)}
+              onETAClick={() => setShowTicketIssuance(true)}
             />
           </section>
 
@@ -148,6 +151,10 @@ function App() {
           <CheerGuideModal onClose={() => setShowCheerGuide(false)} />
         )}
 
+        {showTicketIssuance && (
+          <TicketIssuanceModal onClose={() => setShowTicketIssuance(false)} />
+        )}
+
         {showMarqueeModal && (
           <MarqueeSubmitModal onClose={() => setShowMarqueeModal(false)} />
         )}
@@ -176,6 +183,7 @@ function App() {
             selectedId={selectedTourDate?.id}
             onSelect={handleMarkerClick}
             onCheerGuideClick={() => setShowCheerGuide(true)}
+            onETAClick={() => setShowTicketIssuance(true)}
           />
         </aside>
 
@@ -206,6 +214,10 @@ function App() {
 
       {showCheerGuide && (
         <CheerGuideModal onClose={() => setShowCheerGuide(false)} />
+      )}
+
+      {showTicketIssuance && (
+        <TicketIssuanceModal onClose={() => setShowTicketIssuance(false)} />
       )}
 
       {showMarqueeModal && (

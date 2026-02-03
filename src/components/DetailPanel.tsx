@@ -73,7 +73,7 @@ export function DetailPanel({ tourDate, onClose }: DetailPanelProps) {
             rel="noopener noreferrer"
             className="ticket-button"
           >
-            🎫 티켓 구매하기
+            🎫 공연 예매하기
           </a>
         </div>
       )}

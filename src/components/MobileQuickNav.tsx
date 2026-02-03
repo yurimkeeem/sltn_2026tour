@@ -5,9 +5,10 @@ interface MobileQuickNavProps {
   hasTweets: boolean;
   hasSelectedRegion: boolean;
   onCheerGuideClick?: () => void;
+  onETAClick?: () => void;
 }
 
-export function MobileQuickNav({ hasSetlist, hasTweets, hasSelectedRegion, onCheerGuideClick }: MobileQuickNavProps) {
+export function MobileQuickNav({ hasSetlist, hasTweets, hasSelectedRegion, onCheerGuideClick, onETAClick }: MobileQuickNavProps) {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -59,6 +60,11 @@ export function MobileQuickNav({ hasSetlist, hasTweets, hasSelectedRegion, onChe
         {onCheerGuideClick && (
           <button onClick={onCheerGuideClick}>
             <span>📣</span> 알림장
+          </button>
+        )}
+        {onETAClick && (
+          <button onClick={onETAClick}>
+            <span>✈️</span> ETA
           </button>
         )}
       </nav>
