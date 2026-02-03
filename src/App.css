@@ -1223,6 +1223,36 @@ body {
   font-size: 0.9rem;
 }
 
+/* 모바일 ETA 버튼 (네비게이션 하단) */
+.mobile-eta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: calc(100% - 2rem);
+  margin: 0.75rem 1rem 0 1rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1a1a2e 100%);
+  border: 1px solid var(--accent-color);
+  border-radius: 12px;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-eta-btn:hover,
+.mobile-eta-btn:active {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  transform: scale(1.02);
+}
+
+.mobile-eta-btn span {
+  font-size: 1rem;
+}
+
 /* 모바일 메인 콘텐츠 */
 .mobile-content {
   padding: 0;

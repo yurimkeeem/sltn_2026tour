@@ -62,12 +62,12 @@ export function MobileQuickNav({ hasSetlist, hasTweets, hasSelectedRegion, onChe
             <span>📣</span> 알림장
           </button>
         )}
-        {onETAClick && (
-          <button onClick={onETAClick}>
-            <span>✈️</span> ETA
-          </button>
-        )}
       </nav>
+      {onETAClick && (
+        <button className="mobile-eta-btn" onClick={onETAClick}>
+          <span>✈️</span> What's your ETA?
+        </button>
+      )}
       {toastMessage && (
         <div className="toast-alert">{toastMessage}</div>
       )}
