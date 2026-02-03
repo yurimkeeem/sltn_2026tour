@@ -177,14 +177,42 @@ export function TicketIssuanceModal({ onClose }: TicketIssuanceModalProps) {
     drawVerticalText(ticketData.seat, 417.13, 4437.52, mainFontSize);
   }, [ticketData, bgImage]);
 
-  // 이미지 다운로드
-  const handleDownload = () => {
-    if (!canvasRef.current) return;
+  // 이미지 다운로드 (모바일: Web Share API, 데스크탑: 링크 다운로드)
+  const handleDownload = async () => {
+    if (!canvasRef.current || !ticketData) return;
 
+    const fileName = `SLTN_TICKET_${ticketData.fromCode}_${ticketData.toCode}.png`;
+
+    // Canvas를 Blob으로 변환
+    const blob = await new Promise<Blob | null>((resolve) => {
+      canvasRef.current!.toBlob(resolve, 'image/png');
+    });
+
+    if (!blob) return;
+
+    // 모바일: Web Share API 시도 (사진첩 저장 가능)
+    if (navigator.share && navigator.canShare) {
+      const file = new File([blob], fileName, { type: 'image/png' });
+      const shareData = { files: [file] };
+
+      if (navigator.canShare(shareData)) {
+        try {
+          await navigator.share(shareData);
+          return;
+        } catch (err) {
+          // 사용자가 취소하거나 실패한 경우 폴백
+          if ((err as Error).name === 'AbortError') return;
+        }
+      }
+    }
+
+    // 데스크탑 또는 폴백: 링크 다운로드
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.download = `SLTN_TICKET_${ticketData?.fromCode}_${ticketData?.toCode}.png`;
-    link.href = canvasRef.current.toDataURL('image/png');
+    link.download = fileName;
+    link.href = url;
     link.click();
+    URL.revokeObjectURL(url);
   };
 
   // 티켓 생성 후 화면
